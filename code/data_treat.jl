@@ -1,5 +1,22 @@
-function eDistance(x1, x2, y1, y2)
-    return ((y1-x1)^2+(y2-x2)^2)^(1/2)
+function eDistance(node1, node2)
+    return ((node2[1]-node1[1])^2+(node2[2]-node1[2])^2)^(1/2)
+end
+
+function writeDistances(nodes)
+    graph = Dict()
+    for (key1, node1) in nodes
+        distances = []
+        distanceList = []
+        for (key2, node2) in nodes
+            if(key1 !== key2)
+                distance = eDistance(node1, node2)
+                append!(distances, distance)
+            end
+        end
+        append!(distanceList, distances)
+        graph[key1] = distanceList
+    end
+    graph = sort(collect(graph))
 end
 
 function readFile(filename)
@@ -18,12 +35,13 @@ function readFile(filename)
     end
     nodes = Dict(zip(keys, vals))
     nodes = sort(collect(nodes))
-    print("Nodes \n", nodes,"\n")
+    return nodes
 end
 
 
 function main()
-    readFile("dados/burma14.tsp")
+    nodes = readFile("dados/burma14.tsp")
+    writeDistances(nodes)
 end
 
 
