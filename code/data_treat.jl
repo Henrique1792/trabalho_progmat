@@ -17,6 +17,7 @@ function writeDistances(nodes)
         graph[key1] = distanceList
     end
     graph = sort(collect(graph))
+    return graph
 end
 
 function readFile(filename)
@@ -35,14 +36,5 @@ function readFile(filename)
     end
     nodes = Dict(zip(keys, vals))
     nodes = sort(collect(nodes))
-    return nodes
+    return writeDistances(nodes)
 end
-
-
-function main()
-    nodes = readFile("dados/burma14.tsp")
-    writeDistances(nodes)
-end
-
-
-main()
